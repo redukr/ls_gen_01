@@ -1,7 +1,7 @@
 
 import threading
 from typing import List, Optional
-from PySide6.QtCore import Signal, QObject, QThread
+from PySide6.QtCore import Signal, QObject, QThread, Qt
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QTextEdit, QPushButton, 
                              QLabel, QLineEdit, QComboBox, QMessageBox)
 from PySide6.QtGui import QPixmap
