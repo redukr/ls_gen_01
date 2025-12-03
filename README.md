@@ -29,6 +29,12 @@
    mkdir -p resources/locales
    ```
 
+### Розташування моделей
+
+- **SDXL**: каталоги з вагами потрібно помістити у `infrastructure/ai/models`. Додаток автоматично підхоплює `infrastructure/ai/models/realvisxl` як **RealVisXL (SDXL)** та `infrastructure/ai/models/stable-diffusion-xl-base-1.0` як **SDXL Base 1.0**. Використовуйте саме такі назви папок, щоб моделі з'явилися в списку.
+- **Переклади**: файли локалізації шукаються у `resources/locales` (наприклад, `resources/locales/uk.json`, `resources/locales/en.json`). Жодних моделей перекладу в каталог моделей розміщувати не потрібно; додавайте або редагуйте JSON-файли локалей у цій папці.
+- **Шрифти**: картковий рендерер використовує файл `resources/assets/fonts/LS_font.ttf`, якщо він присутній. Якщо файл не знайдено, автоматично підхоплюється стандартний шрифт Pillow `DejaVuSans`. Щоб прибрати попередження в консолі, додайте власний TTF-файл за цим шляхом.
+
 ## Запуск
 
 ```bash

@@ -16,16 +16,22 @@ class CardRenderer:
 
     def _load_fonts(self):
         """Завантажує шрифти"""
+        font_path = os.path.join(self.fonts_dir, "LS_font.ttf")
+
+        def load_font(size: int):
+            # Use bundled font if available, otherwise fall back to Pillow's default DejaVu
+            if os.path.exists(font_path):
+                return ImageFont.truetype(font_path, size)
+
+            try:
+                return ImageFont.truetype("DejaVuSans.ttf", size)
+            except Exception:
+                return ImageFont.load_default()
+
         try:
-            self.font_title = ImageFont.truetype(
-                os.path.join(self.fonts_dir, "LS_font.ttf"), 48
-            )
-            self.font_desc = ImageFont.truetype(
-                os.path.join(self.fonts_dir, "LS_font.ttf"), 32
-            )
-            self.font_stats = ImageFont.truetype(
-                os.path.join(self.fonts_dir, "LS_font.ttf"), 40
-            )
+            self.font_title = load_font(48)
+            self.font_desc = load_font(32)
+            self.font_stats = load_font(40)
         except Exception as e:
             print(f"Помилка завантаження шрифтів: {e}")
             # Використовуємо шрифт за замовчуванням
@@ -94,14 +100,30 @@ class CardRenderer:
             return
 
         # Позиції для статів
+        stat_positions = {
+            "ATK": (80, 740),
+            "DEF": (80, 780),
+            "STB": (80, 820),
+            "INIT": (380, 740),
+            "RNG": (380, 780),
+            "MOVE": (380, 820)
+        }
+
         stats = [
-            ("ATK", card.stats.atk, 740),
-            ("DEF", card.stats.defense, 780),
-            ("STB", card.stats.stb, 820)
+            ("ATK", card.stats.atk),
+            ("DEF", card.stats.defense),
+            ("STB", card.stats.stb),
+            ("INIT", card.stats.init),
+            ("RNG", card.stats.rng),
+            ("MOVE", card.stats.move)
         ]
 
-        x = 80
-        for stat_name, stat_value, y in stats:
+        for stat_name, stat_value in stats:
+            if stat_name not in stat_positions:
+                continue
+
+            x, y = stat_positions[stat_name]
+
             # Малюємо іконку, якщо вона є
             icon_path = os.path.join(self.icons_dir, f"{stat_name.lower()}.png")
             if os.path.exists(icon_path):
