@@ -33,7 +33,8 @@ class ImageGenerator:
 
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             dtype = torch.float16 if device.type == "cuda" else torch.float32
-            variant = "fp16" if device.type == "cuda" else None
+            # Keep loading the fp16 checkpoint even on CPU to align with bundled weights
+            variant = "fp16"
 
             self.pipe = StableDiffusionXLPipeline.from_pretrained(
                 self.model_path,
