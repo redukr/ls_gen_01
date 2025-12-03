@@ -214,6 +214,9 @@ class DeckViewerWidget(QWidget):
             app_state.current_deck = self.repository.load_from_json(file_path)
             app_state.select_card(None)
             self.update_deck()
+            self.edit_button.setEnabled(False)
+            self.delete_button.setEnabled(False)
+            self.card_selected.emit(None)
             QMessageBox.information(
                 self,
                 self.strings[self.language]["success"],
@@ -237,6 +240,9 @@ class DeckViewerWidget(QWidget):
             app_state.current_deck = self.repository.load_from_csv(file_path)
             app_state.select_card(None)
             self.update_deck()
+            self.edit_button.setEnabled(False)
+            self.delete_button.setEnabled(False)
+            self.card_selected.emit(None)
             QMessageBox.information(
                 self,
                 self.strings[self.language]["success"],
