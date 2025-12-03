@@ -5,3 +5,5 @@
 /models/stable-diffusion-xl-base-1.0
 /models/translate
 *.pyc
+/infrastructure/ai/models/realvisxl
+/infrastructure/ai/models/stable-diffusion-xl-base-1.0
