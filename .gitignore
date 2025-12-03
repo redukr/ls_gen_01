@@ -1,2 +1,5 @@
 /venv
 /models/translator
+/models/opus-mt-uk-en
+/models/realvisxl
+/models/stable-diffusion-xl-base-1.0
