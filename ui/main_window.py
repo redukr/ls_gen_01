@@ -37,6 +37,10 @@ class MainWindow(QMainWindow):
         self.deck_viewer = DeckViewerWidget()
         self.export_widget = ExportWidget()
 
+        # Зв'язки між віджетами
+        self.card_editor.card_saved.connect(self.deck_viewer.update_deck)
+        self.deck_viewer.card_selected.connect(self.card_editor.load_card)
+
         # Додавання віджетів до вкладок
         self.tabs.addTab(self.ai_generator, "Генератор ШІ")
         self.tabs.addTab(self.card_editor, "Редактор карток")

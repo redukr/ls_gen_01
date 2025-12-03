@@ -9,10 +9,18 @@ class CardRepository:
     def __init__(self, data_dir: str = "resources/data"):
         self.data_dir = data_dir
 
+    def _resolve_path(self, filename: str) -> str:
+        """Allow both absolute paths and data-dir relative names."""
+
+        if os.path.isabs(filename):
+            return filename
+
+        return os.path.join(self.data_dir, filename)
+
     def load_from_csv(self, filename: str) -> List[Card]:
         """Завантажує картки з CSV файлу"""
         cards = []
-        file_path = os.path.join(self.data_dir, filename)
+        file_path = self._resolve_path(filename)
 
         with open(file_path, 'r', encoding='utf-8') as file:
             reader = csv.DictReader(file)
@@ -25,7 +33,7 @@ class CardRepository:
     def load_from_json(self, filename: str) -> List[Card]:
         """Завантажує картки з JSON файлу"""
         cards = []
-        file_path = os.path.join(self.data_dir, filename)
+        file_path = self._resolve_path(filename)
 
         with open(file_path, 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -39,7 +47,7 @@ class CardRepository:
 
     def save_to_csv(self, cards: List[Card], filename: str):
         """Зберігає картки у CSV файл"""
-        file_path = os.path.join(self.data_dir, filename)
+        file_path = self._resolve_path(filename)
 
         with open(file_path, 'w', encoding='utf-8', newline='') as file:
             fieldnames = ['name', 'type', 'cost', 'cost_type', 'atk', 'def', 'stb', 'init', 'rng', 'move', 'description']
@@ -51,7 +59,7 @@ class CardRepository:
 
     def save_to_json(self, cards: List[Card], filename: str, deck_color: str = "#7B1F1F"):
         """Зберігає картки у JSON файл"""
-        file_path = os.path.join(self.data_dir, filename)
+        file_path = self._resolve_path(filename)
 
         data = {
             'deck_color': deck_color,
