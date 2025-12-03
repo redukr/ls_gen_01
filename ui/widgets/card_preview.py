@@ -1,9 +1,12 @@
-
 from typing import Optional
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
+
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
-from core.models.card import Card
+from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
+
 from app.state import app_state
+from core.models.card import Card
+
 
 class CardPreviewWidget(QWidget):
     def __init__(self, parent=None):
@@ -13,12 +16,12 @@ class CardPreviewWidget(QWidget):
         self.strings = {
             "uk": {
                 "no_card": "Немає картки",
-                "no_image": "Немає зображення"
+                "no_image": "Немає зображення",
             },
             "en": {
                 "no_card": "No card",
-                "no_image": "No image"
-            }
+                "no_image": "No image",
+            },
         }
 
         self.current_card = None
@@ -80,16 +83,11 @@ class CardPreviewWidget(QWidget):
             # Оновлення статів
             if card.is_unit() and card.stats:
                 stats_text = (
-                    f"Атака: {card.stats.atk}
-"
-                    f"Захист: {card.stats.def}
-"
-                    f"Стійкість: {card.stats.stb}
-"
-                    f"Ініціатива: {card.stats.init}
-"
-                    f"Дальність: {card.stats.rng}
-"
+                    f"Атака: {card.stats.atk}\n"
+                    f"Захист: {card.stats.defense}\n"
+                    f"Стійкість: {card.stats.stb}\n"
+                    f"Ініціатива: {card.stats.init}\n"
+                    f"Дальність: {card.stats.rng}\n"
                     f"Рух: {card.stats.move}"
                 )
                 self.stats_label.setText(stats_text)
