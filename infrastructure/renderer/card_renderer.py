@@ -96,7 +96,7 @@ class CardRenderer:
         # Позиції для статів
         stats = [
             ("ATK", card.stats.atk, 740),
-            ("DEF", card.stats.def, 780),
+            ("DEF", card.stats.defense, 780),
             ("STB", card.stats.stb, 820)
         ]
 

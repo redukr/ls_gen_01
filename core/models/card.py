@@ -5,7 +5,7 @@ from typing import Optional
 @dataclass
 class CardStats:
     atk: int = 0
-    def: int = 0
+    defense: int = 0
     stb: int = 0
     init: int = 0
     rng: int = 0

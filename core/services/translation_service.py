@@ -21,7 +21,7 @@ class TranslationService:
         if card.stats:
             translated_data.update({
                 "atk": card.stats.atk,
-                "def": card.stats.def,
+                "def": card.stats.defense,
                 "stb": card.stats.stb,
                 "init": card.stats.init,
                 "rng": card.stats.rng,

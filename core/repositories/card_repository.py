@@ -67,7 +67,7 @@ class CardRepository:
         if data.get('atk') is not None:
             stats = CardStats(
                 atk=int(data.get('atk', 0)),
-                def=int(data.get('def', 0)),
+                defense=int(data.get('def', 0)),
                 stb=int(data.get('stb', 0)),
                 init=int(data.get('init', 0)),
                 rng=int(data.get('rng', 0)),
@@ -96,7 +96,7 @@ class CardRepository:
         if card.stats:
             data.update({
                 'atk': card.stats.atk,
-                'def': card.stats.def,
+                'def': card.stats.defense,
                 'stb': card.stats.stb,
                 'init': card.stats.init,
                 'rng': card.stats.rng,
