@@ -1,8 +1,8 @@
 
 import os
 import threading
-from typing import List, Optional, Callable
-from diffusers import StableDiffusionXLPipeline, DPMSolverMultistepScheduler
+from typing import Callable, List, Optional
+
 import torch
 
 class ImageGenerator:
@@ -23,14 +23,23 @@ class ImageGenerator:
 
             print(f"[INFO] Завантаження моделі: {self.model_path}")
 
+            try:
+                from diffusers import DPMSolverMultistepScheduler, StableDiffusionXLPipeline
+            except Exception as exc:  # pragma: no cover - defensive import guard
+                raise RuntimeError(
+                    "Не вдалося імпортувати diffusers. Спробуйте видалити або перевстановити xformers, "
+                    "якщо використовуєте CPU."
+                ) from exc
+
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-            dtype = torch.float16
+            dtype = torch.float16 if device.type == "cuda" else torch.float32
+            variant = "fp16" if device.type == "cuda" else None
 
             self.pipe = StableDiffusionXLPipeline.from_pretrained(
                 self.model_path,
                 torch_dtype=dtype,
                 use_safetensors=True,
-                variant="fp16"
+                variant=variant,
             ).to(device)
 
             # Оптимізації для RTX 3060
